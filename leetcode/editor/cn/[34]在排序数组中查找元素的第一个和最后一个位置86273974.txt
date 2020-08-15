@@ -1,0 +1,64 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        // 思路: 两次二分法查找,一次左区间,一次右区间.根据index属于左区间还是右区间来区分.
+        // 异常: 
+        // 1. nums为空
+        // 2. nums=[1,1] taget=1 这种场景,处理会有问题得到结果为[1,0]. 为了防止这种场景对nums收尾增加一个值.
+        if (nums.length == 0) {
+            return new int[] { -1, -1 };
+        }
+        int[] tNums = new int[nums.length + 2];
+        tNums[0] = Integer.MIN_VALUE;
+        tNums[nums.length + 1] = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            tNums[i + 1] = nums[i];
+        }
+        int l, r;
+        {// 左区间
+            int ll = 0, rr = tNums.length - 1;
+            while (true) {
+                int index = (ll + rr) / 2;
+                // System.out.println(ll + "," + rr);
+                if (index == ll || index == rr) {
+                    if (tNums[rr] != target) {
+                        rr = 0;
+                    }
+                    break;
+                }
+                int t = tNums[index];
+                if (t < target) {
+                    ll = index;
+                } else {
+                    rr = index;
+                }
+            }
+            l = rr;
+            // System.out.println(l);
+        }
+        // System.out.println("");
+        {// 右区间
+            int ll = 0, rr = tNums.length - 1;
+            while (true) {
+                int index = (ll + rr) / 2;
+                // System.out.println(ll + "," + rr);
+                int t = tNums[index];
+                if (index == ll || index == rr) {
+                    if (tNums[ll] != target) {
+                        ll = 0;
+                    }
+                    break;
+                }
+                if (t <= target) {
+                    ll = index;
+                } else {
+                    rr = index;
+                }
+            }
+            r = ll;
+            // System.out.println(r);
+        }
+        return new int[] { l - 1, r - 1 };
+    }
+}
+//runtime:2 ms
+//memory:43.1 MB

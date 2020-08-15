@@ -1,0 +1,8 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+
+    }
+}
+
+//total_correct:null
+//compile_error:Line 4: error: missing return statement

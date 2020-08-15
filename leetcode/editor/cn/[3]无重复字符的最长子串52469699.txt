@@ -1,0 +1,21 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        // 思路: 使用i,j两个指针滑动窗口
+        // 如果set.contains(j)则set.remove(i)知道set不含有j
+        // 如果!set.contains(j)则将j添加到set中.同时使用ml保存最大长度
+        Set set = new LinkedHashSet();
+        int i = 0, j = 0, l = s.length();
+        int ml = 0;
+        while (i < l && j < l) {
+            if (!set.contains(s.charAt(j))) {
+                set.add(s.charAt(j++));
+                ml = Math.max(ml, j - i);
+            } else {
+                set.remove(s.charAt(i++));
+            }
+        }
+        return ml;
+    }
+}
+//runtime:11 ms
+//memory:42 MB

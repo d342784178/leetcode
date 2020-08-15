@@ -1,0 +1,67 @@
+
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        return swap(head, 2);
+    }
+
+    private ListNode swap(ListNode head, int n) {
+        ListNode first = null;
+        ListNode firstPre =new ListNode();
+        while (true) {
+            // lastNext.next指向下个子链表的头结点
+            ListNode lastNext = new ListNode();
+            // 返回当前子链表的尾结点
+            reverse(head, n, firstPre, lastNext);
+            // 头结点为空,进行赋值
+            if (first == null) {
+                first = firstPre.next;
+            }
+            // print(first);
+            // 不存在下一子链表的头结点 ,直接跳出
+            if (lastNext.next == null) {
+                break;
+            }
+            //将head结点作为下一子链路的前一结点
+            firstPre=head;
+            // 将head赋值为下一子链表的头结点
+            head = head.next;
+        }
+        // 返回头结点
+        return first;
+    }
+
+    private ListNode reverse(ListNode head, int n, ListNode firstPre, ListNode lastNext) {
+        if (head==null||head.next == null || n <= 1) {
+            if (n <= 1) {
+                lastNext.next = head.next;
+            }
+            firstPre.next = head;
+            return head;
+        }
+
+        // 递归获取尾结点
+        ListNode node = reverse(head.next, n - 1, firstPre, lastNext);
+
+        // 将尾结点与其下一结点交换
+        head.next = node.next;
+        node.next = head;
+        // print(node);
+        return head;
+    }
+
+    private void print(ListNode a) {
+        int i = 0;
+        while (i++ < 100) {
+            System.out.print(a.val);
+            a = a.next;
+            if (a == null) {
+                break;
+            }
+        }
+        System.out.println("");
+    }
+}
+// @lc code=end
+
+//runtime:0 ms
+//memory:37.6 MB

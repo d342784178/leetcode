@@ -1,0 +1,43 @@
+class Solution {
+    /**
+     * 思路: 排序+双指针</br>
+     * 1. 4个指针u/i/j/k 以i指针为界</r> 2. u=i-1向前遍历,u=0时停止 3. j=i+1向后遍历,k=length-1向前遍历.
+     * j==k时停止遍历.</br>
+     * 
+     */
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        Set<List<Integer>> list = new HashSet<>();
+        Arrays.sort(nums);
+        System.out.println(Arrays.toString(nums));
+        for (int u = 0; u < nums.length; u++) {
+            int i = u + 1;
+            while (i <nums.length-2) {
+                int j = i + 1, k = nums.length - 1;
+                while (j < k) {
+                    int sum = nums[u] + nums[i] + nums[j] + nums[k];
+                    // System.out.println(String.format("%d,%d,%d,%d", u, i, j, k));
+                    // System.out.println(sum);
+                    if (sum - target < 0) {
+                        j++;
+                    } else if (sum - target > 0) {
+                        k--;
+                    } else {
+                        List<Integer> t = new ArrayList<>();
+                        t.add(nums[u]);
+                        t.add(nums[i]);
+                        t.add(nums[j]);
+                        t.add(nums[k]);
+                        list.add(t);
+                        j++;
+                        k--;
+                    }
+                }
+                i+= 1;
+            }
+        }
+        return new ArrayList<>(list);
+
+    }
+}
+//runtime:34 ms
+//memory:41.6 MB

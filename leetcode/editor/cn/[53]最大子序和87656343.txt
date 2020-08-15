@@ -1,0 +1,23 @@
+class Solution {
+    /**
+     * 状态方程: lastSum(i)表示以i结尾的最大子数组和,maxSum(i)所有子数组的最大和
+     * lastSum(i)=max(lastSum(i-1)+a[i],a[i]) maxSum(i)=max(maxSum(i-1),lastSum(i))
+     * 
+     * @param nums
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        int lastSum = nums[0], maxSum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            lastSum = Math.max(lastSum + nums[i], nums[i]);
+            maxSum = Math.max(lastSum, maxSum);
+            // System.out.println(lastSum+","+maxSum);
+        }
+        return maxSum;
+    }
+}
+//runtime:1 ms
+//memory:39.7 MB
