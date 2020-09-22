@@ -19,6 +19,11 @@ import java.util.List;
  * }
  */
 class Solution {
+    /**
+     * 分治思想,以1..n分别作为根节点构建左右子树(递归)
+     * @param n
+     * @return
+     */
     public List<TreeNode> generateTrees(int n) {
         List<TreeNode> ans = new ArrayList<TreeNode>();
         if (n == 0) {

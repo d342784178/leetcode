@@ -12,6 +12,11 @@ import javax.sound.midi.Soundbank;
  * }
  */
 class Solution {
+    /**
+     * 分治思想: 左子树<根节点,右子树>根节点.递归分治
+     * @param root
+     * @return
+     */
     public boolean isValidBST(TreeNode root) {
         return asdf(root, null, null);
     }
@@ -27,7 +32,7 @@ class Solution {
         if (root == null) {
             return true;
         }
-        //System.out.println(root.val+","+lower+","+bigger);
+        System.out.println(root.val+","+lower+","+bigger);
         int val = root.val;
         if (lower != null && val <= lower) {
             return false;

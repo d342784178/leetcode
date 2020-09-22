@@ -28,6 +28,7 @@ class Solution {
         }
 
         ArrayList<List<String>> list = new ArrayList<>();
+        //已知回文串的dp数组,根据[j,i]首尾相连找到可以组成完整字符串的子串
         sdf(list, new ArrayDeque<>(), dp, s.length() - 1, s);
         return list;
     }

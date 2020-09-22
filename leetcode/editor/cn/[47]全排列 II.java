@@ -45,6 +45,7 @@ class Solution {
             }
             //接下来，如果当前节点与他的前一个节点一样，并其他的前一个节点已经被遍历过了，那我们也就不需要了。
             if (i > 0 && nums[i] == nums[i - 1] && visited[i - 1]) {
+                System.out.println(nums[i]+","+i);
                 break;
             }
             //做出选择
