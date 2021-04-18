@@ -48,7 +48,7 @@ class Solution {
         ListNode current   = head;
         //指向断开结点的前一个结点,用于将其next置空
         ListNode targetPre = null;
-        //尾结点,需要将其next置空
+        //尾结点,需要将其next=head
         ListNode last      = null;
         if (head == null) {
             return null;
@@ -58,7 +58,7 @@ class Solution {
         }
         int length = 1;
         while (true) {
-            //当tk走到0时 targetPre开始走,此时current走到k-nl-1
+            //当k走到0时 targetPre开始走
             k -= 1;
             if (k == -1) {
                 targetPre = head;
@@ -66,12 +66,14 @@ class Solution {
             }
             //k可能超过链表长度,所以循环往下遍历
             if (current.next != null) {
+                //未超出链表长度
                 length += 1;
                 current = current.next;
                 if (targetPre != null) {
                     targetPre = targetPre.next;
                 }
             } else {
+                //超出链表长度
                 last = current;
                 //System.out.println("[last]" + last.val);
                 //System.out.println("[length]" + length);
