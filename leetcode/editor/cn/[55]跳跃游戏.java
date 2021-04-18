@@ -2,14 +2,11 @@
 class Solution {
     /**
      * 思路:
-     * 使用贪心算法
+     * 使用当index=i时 计算当前i能走到的最远maxJ，再往前走直到index=maxJ，期间不断更新maxJ
      * 例:[2,3,1,1,4]
-     * i=0时 [2,3,1,1,4]=[3,1,1,4]=[1,1,4]
-     * - 2[3,1,1,4] i=1 2[3,1,1,4]=2,3[1,1,4]=2,3,1[1,4]=[4]  跳出
-     * - 2,3[1,1,4] i=2 参考2[3,1,1,4]
+     * i=0时 maxJ=0+2=2
+     * i=1时 maxJ=max（2，1+3）=4>=4因此return True
      *
-     * 从上面可以看到当指针指向i时,我们需要去尝试在maxI(指针i能走到的最远下标)范围内的所有位置.
-     * 因此维护遍历i不断更新maxI,直到遍历结束||maxI>=nums.length
      *
      * @param nums
      * @return
@@ -18,14 +15,15 @@ class Solution {
         if (nums == null || nums.length == 0) {
             return true;
         }
-        //i指向nums,maxI记录当前i可以走到的最远下标
-        int i = 0, maxI =0+ nums[0];
-        for (; i <= maxI && i < nums.length; i++) {
-            maxI = Math.max(maxI, i + nums[i]);
-            //System.out.println(String.format("i:%d,maxI:%d", i, maxI));
+        int maxJ = 0;
+        for (int i = 0; i < nums.length && i <= maxJ; i++) {
+            maxJ = Math.max(maxJ, i + nums[i]);
+            if (maxJ >= nums.length - 1) {
+                return true;
+            }
         }
-        return maxI >= (nums.length-1);
 
+        return false;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

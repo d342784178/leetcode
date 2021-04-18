@@ -1,0 +1,38 @@
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        Set<List<Integer>> result = new HashSet<>();
+        List<Integer> list = Arrays.stream(candidates).boxed().collect(Collectors.toList());
+        sdf(result, new ArrayDeque<>(), list, target);
+        return new ArrayList<>(result);
+    }
+
+    private int sdf(Set<List<Integer>> result, Deque<Integer> path, List<Integer> candidates, int target) {
+        if (target == 0) {
+            // target==0 符合条件,加入result中
+            System.out.println("[o]:" + path);
+            result.add(new ArrayList<>(path));
+            return 0;
+        }
+        // 结束条件,没有子节点||target<0
+        if (candidates.size() == 0 || target < 0) {
+            System.out.println("[x]:" + path);
+            return -1;
+        }
+        Iterator<Integer> iterator = candidates.iterator();
+        while (iterator.hasNext()) {
+            Integer next = iterator.next();
+            path.addLast(next);
+            iterator.remove();
+            int s = sdf(result, path, new ArrayList<>(candidates), target - next);
+            path.removeLast();
+            if (s < 0) {
+                break;
+            }
+        }
+        return 0;
+    }
+}
+
+//runtime:153 ms
+//memory:39.9 MB
